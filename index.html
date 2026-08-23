@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7d8df" />
+  <title>Happy Birthday ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="intro-overlay" id="introOverlay">
+    <div class="intro-decor intro-decor-1">♡</div>
+    <div class="intro-decor intro-decor-2">✦</div>
+    <div class="intro-decor intro-decor-3">🎂</div>
+    <div class="intro-decor intro-decor-4">♡</div>
+    <div class="intro-decor intro-decor-5">✿</div>
+
+    <div class="intro-card">
+      <p class="intro-line intro-line-1">Hey bé 👀</p>
+      <p class="intro-line intro-line-2">Có người đã mất khá nhiều thời gian làm cái này cho bé đó.</p>
+      <p class="intro-line intro-line-3">Nên là…</p>
+      <p class="intro-line intro-line-4"><strong>mở volume lên trước nha 🔊😌</strong></p>
+      <button class="intro-btn intro-line intro-line-5" id="introOpenBtn">Okii, cho em xem 🎁</button>
+    </div>
+  </div>
+
+  <div id="siteContent" class="site-content-hidden">
+
+  <div class="ambient ambient-1"></div>
+  <div class="ambient ambient-2"></div>
+  <div class="ambient ambient-3"></div>
+
+  <button class="music-toggle" id="musicToggle" aria-label="Bật/tắt nhạc">♫</button>
+  <audio id="bgMusic" loop preload="none">
+    <source src="music/our-song.mp3" type="audio/mpeg">
+  </audio>
+
+  <main>
+    <section class="hero section" id="top">
+      <div class="hero-card glass">
+        <p class="eyebrow">A little birthday surprise</p>
+        <h1>Happy Birthday,<br><span id="girlfriendName">My Love</span> ❤️</h1>
+        <p class="hero-date" id="birthdayDate">23.08.2026</p>
+        <p class="hero-copy">Anh làm một thứ nho nhỏ cho em. Và em phải xem hết mới được tới phần quà nhé 😌</p>
+        <button class="primary-btn" id="openBtn">Tiếp tục xem nhé ❤️</button>
+        <p class="tiny-note">Tip: bật âm lượng trước khi mở.</p>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="section-heading">
+        <p class="eyebrow">For you</p>
+        <h2>Một vài điều anh muốn nói</h2>
+      </div>
+      <div class="message-card">
+        <p>Happy Birthday to my favorite person ❤️</p>
+        <p>Cảm ơn em vì đã ở bên anh, nghe những câu chuyện linh tinh của anh, cùng anh đi qua những ngày rất bình thường nhưng lại trở thành những kỷ niệm rất đặc biệt.</p>
+        <p>Anh mong tuổi mới sẽ mang đến cho em thật nhiều niềm vui, những điều em mong muốn, và cả những chuyến đi, bữa ăn, khoảnh khắc mà sau này hai đứa sẽ còn nhắc lại.</p>
+        <p>Và tất nhiên, anh hy vọng mình vẫn sẽ là người được chúc mừng sinh nhật em trong rất nhiều năm nữa. ❤️</p>
+      </div>
+    </section>
+
+    <section class="section memories-section reveal" id="memoriesSection">
+      <div class="section-heading memories-heading">
+        <p class="eyebrow">Our memories</p>
+        <h2>Những khoảnh khắc của hai đứa</h2>
+        <p>Vuốt sang trái để xem tiếp nhé ❤️</p>
+      </div>
+
+      <div class="memories-shell">
+        <div class="memory-carousel" id="memoryCarousel">
+          <!-- Memories are generated automatically from /memories by UPDATE_CONTENT.bat -->
+        </div>
+
+        <div class="carousel-meta">
+          <div class="memory-dots" id="memoryDots"></div>
+          <div class="memory-count"><span id="currentMemory">1</span> / <span id="totalMemory">0</span></div>
+        </div>
+
+        <div class="swipe-hint" id="swipeHint">← vuốt để xem →</div>
+      </div>
+    </section>
+
+    <section class="section reveal after-timeline" id="afterTimeline">
+      <div class="section-heading">
+        <p class="eyebrow">Tiny reasons</p>
+        <h2>Things I love about you</h2>
+      </div>
+      <div class="reasons-grid">
+        <article class="reason-card"><span>❤️</span><h3>Your smile</h3><p>Đặc biệt là lúc em cố nhịn cười nhưng không được.</p></article>
+        <article class="reason-card"><span>😂</span><h3>Your silly moments</h3><p>Phiên bản mà anh thích nhất của em.</p></article>
+        <article class="reason-card"><span>☕</span><h3>Our random talks</h3><p>Từ chuyện nghiêm túc đến những chủ đề chẳng để làm gì.</p></article>
+        <article class="reason-card"><span>🥰</span><h3>How you care</h3><p>Cách em quan tâm đến mọi người luôn làm anh để ý.</p></article>
+        <article class="reason-card"><span>📸</span><h3>Our memories</h3><p>Kể cả những bức ảnh mà cả hai đều không muốn đăng.</p></article>
+        <article class="reason-card"><span>✨</span><h3>Simply you</h3><p>Chắc vậy là đủ lý do rồi.</p></article>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="easter-card">
+        <p class="eyebrow">Very important</p>
+        <h2>Do NOT click this button.</h2>
+        <button class="danger-btn" id="dontClickBtn">Do not click 😐</button>
+        <p id="easterText" class="easter-text"></p>
+      </div>
+    </section>
+
+    <section class="section reveal gift-section" id="gifts">
+      <div class="section-heading">
+        <p class="eyebrow">Birthday gift</p>
+        <h2>Giờ thì chọn quà nhé 🎁</h2>
+        <p>Chọn một nhóm trước, sau đó chọn đúng món em thích.</p>
+      </div>
+
+      <div class="category-sticky">
+        <div class="category-tabs" id="categoryTabs">
+          <!-- Gift categories are generated automatically from /gifts -->
+        </div>
+      </div>
+
+      <div class="product-carousel-wrap">
+        <div class="product-grid" id="productGrid"></div>
+        <div class="gift-swipe-hint">← vuốt để xem thêm quà →</div>
+      </div>
+
+      <div class="gift-result glass hidden" id="giftResult">
+        <p>You picked</p>
+        <div class="selected-product-preview">
+          <img id="selectedGiftImage" src="" alt="">
+          <div>
+            <h3 id="selectedGift">Your gift</h3>
+            <p id="selectedGiftCategory"></p>
+          </div>
+        </div>
+        <button class="primary-btn" id="confirmGift">Confirm my gift ❤️</button>
+        <p class="gift-confirm-note" id="giftConfirmNote"></p>
+      </div>
+    </section>
+
+    <section class="section ending reveal">
+      <div class="ending-card">
+        <p class="eyebrow">One more thing</p>
+        <h2>Trong tất cả những món quà ở trên…</h2>
+        <p>Điều anh thích nhất vẫn là việc hai đứa còn có thêm thật nhiều kỷ niệm để cùng nhau nhớ lại.</p>
+        <h3>Happy Birthday ❤️</h3>
+        <p class="signature">— Your boyfriend</p>
+        <button class="primary-btn" id="finalSurprise">One last surprise ❤️</button>
+        <p id="finalText" class="final-text"></p>
+      </div>
+    </section>
+  </main>
+
+  </div>
+
+  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+  <script src="data/content.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
