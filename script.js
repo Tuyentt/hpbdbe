@@ -32,30 +32,48 @@ introLines.forEach((line, i) => {
   setTimeout(() => line.classList.add("show"), introDelays[i] || 0);
 });
 
-introOpenBtn.addEventListener("click", async () => {
-  try {
-    bgMusic.currentTime = 0;
-    await bgMusic.play();
-    musicToggle.classList.add("playing");
-    musicToggle.textContent = "❚❚";
-  } catch (e) {
-    console.log("Music could not start:", e);
-  }
-
+introOpenBtn.addEventListener("click", () => {
+  // IMPORTANT:
+  // Reveal the website FIRST. Audio must never block the page opening.
   siteContent.classList.remove("site-content-hidden");
   siteContent.classList.add("site-content-visible");
 
   introOverlay.classList.add("is-closing");
   document.body.classList.remove("intro-open");
 
+  // Start music in parallel from the user's click.
+  // If the file is missing / invalid / blocked, the website still opens normally.
+  try {
+    bgMusic.currentTime = 0;
+    const playPromise = bgMusic.play();
+
+    if (playPromise && typeof playPromise.then === "function") {
+      playPromise
+        .then(() => {
+          musicToggle.classList.add("playing");
+          musicToggle.textContent = "❚❚";
+        })
+        .catch((e) => {
+          console.log("Music could not start:", e);
+          musicToggle.classList.remove("playing");
+          musicToggle.textContent = "♫";
+        });
+    }
+  } catch (e) {
+    console.log("Music could not start:", e);
+  }
+
   setTimeout(() => {
-    introOverlay.remove();
+    if (introOverlay && introOverlay.parentNode) {
+      introOverlay.remove();
+    }
   }, 800);
 
-  burstConfetti(36);
+  // Slight delay makes the reveal feel smoother.
+  setTimeout(() => burstConfetti(36), 180);
 });
 
-openBtn.addEventListener("click", async () => {
+if (openBtn) openBtn.addEventListener("click", async () => {
   document.querySelectorAll(".reveal")[0]?.scrollIntoView({ behavior: "smooth" });
   try {
     await bgMusic.play();
@@ -65,7 +83,7 @@ openBtn.addEventListener("click", async () => {
   burstConfetti(30);
 });
 
-musicToggle.addEventListener("click", async () => {
+if (musicToggle) musicToggle.addEventListener("click", async () => {
   if (bgMusic.paused) {
     try {
       await bgMusic.play();
@@ -81,7 +99,7 @@ musicToggle.addEventListener("click", async () => {
   }
 });
 
-dontClickBtn.addEventListener("click", () => {
+if (dontClickBtn) dontClickBtn.addEventListener("click", () => {
   easterClicks += 1;
   const messages = [
     "Anh biết ngay là em sẽ bấm mà. 😑",
@@ -178,22 +196,31 @@ function getMemoryDots() {
   return [...document.querySelectorAll(".memory-dot")];
 }
 
-function updateMemoryActive() {
+let memoryMetrics = [];
+let memoryActiveIndex = -1;
+let memoryRaf = 0;
+
+function measureMemorySlides() {
+  const slides = getMemorySlides();
+  memoryMetrics = slides.map(slide => ({
+    center: slide.offsetLeft + slide.offsetWidth / 2
+  }));
+  updateMemoryActive(true);
+}
+
+function updateMemoryActive(force = false) {
   const memorySlides = getMemorySlides();
   const dots = getMemoryDots();
-  if (!memorySlides.length) return;
+  if (!memorySlides.length || !memoryMetrics.length) return;
 
-  const carouselRect = memoryCarousel.getBoundingClientRect();
-  const center = carouselRect.left + carouselRect.width / 2;
-  const maxDistance = Math.max(carouselRect.width * 0.72, 1);
+  const viewportCenter = memoryCarousel.scrollLeft + memoryCarousel.clientWidth / 2;
+  const maxDistance = Math.max(memoryCarousel.clientWidth * 0.72, 1);
 
   let bestIndex = 0;
   let bestDistance = Infinity;
 
-  memorySlides.forEach((slide, i) => {
-    const r = slide.getBoundingClientRect();
-    const slideCenter = r.left + r.width / 2;
-    const signedDistance = slideCenter - center;
+  for (let i = 0; i < memorySlides.length; i++) {
+    const signedDistance = memoryMetrics[i].center - viewportCenter;
     const distance = Math.abs(signedDistance);
 
     if (distance < bestDistance) {
@@ -201,40 +228,74 @@ function updateMemoryActive() {
       bestIndex = i;
     }
 
-    // 0 = centered, 1 = sufficiently far away
-    const t = Math.min(distance / maxDistance, 1);
+    // Animate only cards close to the viewport.
+    if (distance < memoryCarousel.clientWidth * 1.35) {
+      const t = Math.min(distance / maxDistance, 1);
+      const scale = 1 - t * 0.075;
+      const opacity = 1 - t * 0.46;
+      const rotate = Math.max(
+        -2.8,
+        Math.min(2.8, signedDistance / memoryCarousel.clientWidth * 4.5)
+      );
+      const translateY = t * 10;
 
-    // Continuous "page browsing" feel
-    const scale = 1 - t * 0.10;
-    const opacity = 1 - t * 0.52;
-    const rotate = Math.max(-4.5, Math.min(4.5, signedDistance / carouselRect.width * 8));
-    const translateY = t * 14;
+      const slide = memorySlides[i];
+      slide.style.setProperty("--page-scale", scale.toFixed(3));
+      slide.style.setProperty("--page-opacity", opacity.toFixed(3));
+      slide.style.setProperty("--page-rotate", `${rotate.toFixed(2)}deg`);
+      slide.style.setProperty("--page-y", `${translateY.toFixed(1)}px`);
+    }
+  }
 
-    slide.style.setProperty("--page-scale", scale.toFixed(3));
-    slide.style.setProperty("--page-opacity", opacity.toFixed(3));
-    slide.style.setProperty("--page-rotate", `${rotate.toFixed(2)}deg`);
-    slide.style.setProperty("--page-y", `${translateY.toFixed(1)}px`);
-  });
+  // Only update classes/text when the active slide actually changes.
+  if (force || bestIndex !== memoryActiveIndex) {
+    memoryActiveIndex = bestIndex;
 
-  memorySlides.forEach((slide, i) => slide.classList.toggle("active", i === bestIndex));
-  dots.forEach((dot, i) => dot.classList.toggle("active", i === bestIndex));
-  currentMemory.textContent = bestIndex + 1;
+    memorySlides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === bestIndex);
 
-  if (bestIndex > 0) swipeHint.style.opacity = "0.35";
-  swipeHint.textContent =
-    bestIndex === memorySlides.length - 1
-      ? "Đã xem hết album ❤️"
-      : "← vuốt để lật trang →";
+      // Far cards stay in a cheap static state.
+      if (Math.abs(i - bestIndex) > 2) {
+        slide.style.setProperty("--page-scale", ".925");
+        slide.style.setProperty("--page-opacity", ".48");
+        slide.style.setProperty("--page-rotate", "0deg");
+        slide.style.setProperty("--page-y", "10px");
+      }
+    });
+
+    dots.forEach((dot, i) => dot.classList.toggle("active", i === bestIndex));
+    currentMemory.textContent = bestIndex + 1;
+
+    swipeHint.style.opacity = bestIndex > 0 ? "0.35" : "";
+    swipeHint.textContent =
+      bestIndex === memorySlides.length - 1
+        ? "Đã xem hết album ❤️"
+        : "← vuốt để lật trang →";
+  }
 }
 
-let memoryRaf = null;
-memoryCarousel.addEventListener("scroll", () => {
-  cancelAnimationFrame(memoryRaf);
-  memoryRaf = requestAnimationFrame(updateMemoryActive);
+function scheduleMemoryUpdate() {
+  if (memoryRaf) return;
+
+  memoryRaf = requestAnimationFrame(() => {
+    memoryRaf = 0;
+    updateMemoryActive();
+  });
+}
+
+memoryCarousel.addEventListener("scroll", scheduleMemoryUpdate, { passive: true });
+
+let memoryResizeTimer = 0;
+window.addEventListener("resize", () => {
+  clearTimeout(memoryResizeTimer);
+  memoryResizeTimer = setTimeout(measureMemorySlides, 120);
 }, { passive: true });
 
-window.addEventListener("resize", updateMemoryActive);
-updateMemoryActive();
+// Calculate card geometry only when layout is ready, not while scrolling.
+requestAnimationFrame(() => {
+  measureMemorySlides();
+  setTimeout(measureMemorySlides, 250);
+});
 
 /* GIFTS — generated from /gifts folders */
 const categoryTabs = document.getElementById("categoryTabs");
@@ -323,14 +384,14 @@ function renderCategory(categoryKey) {
 
 renderGiftTabs();
 
-confirmGift.addEventListener("click", () => {
+if (confirmGift) confirmGift.addEventListener("click", () => {
   if (!currentGift) return;
   localStorage.setItem("birthdayGiftChoice", JSON.stringify(currentGift));
   giftConfirmNote.textContent = `Đã chốt: ${currentGift.name} (${currentGift.category}). Chụp màn hình đoạn này gửi anh nhé 😌`;
   burstConfetti(55);
 });
 
-finalSurprise.addEventListener("click", () => {
+if (finalSurprise) finalSurprise.addEventListener("click", () => {
   finalText.textContent = "Plot twist: món quà tốt nhất vẫn chưa xuất hiện trên website này. ❤️";
   burstConfetti(80);
 });
