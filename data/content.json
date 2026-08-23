@@ -1,0 +1,142 @@
+{
+  "memories": [
+    {
+      "image": "memories/01.svg",
+      "title": "The beginning",
+      "date": "12.05.2025",
+      "location": "Hà Nội",
+      "description": "Bức ảnh mở đầu cho rất nhiều ảnh về sau.",
+      "chapter": "Chapter 01"
+    },
+    {
+      "image": "memories/02.svg",
+      "title": "One ordinary day",
+      "date": "02.06.2025",
+      "location": "Hà Nội",
+      "description": "Một ngày rất bình thường nhưng anh vẫn nhớ rất rõ.",
+      "chapter": "Chapter 02"
+    },
+    {
+      "image": "memories/03.svg",
+      "title": "Our little trip",
+      "date": "20.07.2025",
+      "location": "Hạ Long",
+      "description": "Đi đâu không quan trọng lắm. Người đi cùng mới quan trọng.",
+      "chapter": "Chapter 03"
+    },
+    {
+      "image": "memories/04.svg",
+      "title": "Favorite version of us",
+      "date": "10.10.2025",
+      "location": "Một nơi nào đó ❤️",
+      "description": "Một trong những khoảnh khắc anh thích nhất của hai đứa.",
+      "chapter": "Chapter 04"
+    },
+    {
+      "image": "memories/05.svg",
+      "title": "Still choosing you",
+      "date": "14.02.2026",
+      "location": "Hà Nội",
+      "description": "Càng nhiều kỷ niệm, anh càng thấy vui vì vẫn là em.",
+      "chapter": "Chapter 05"
+    },
+    {
+      "image": "memories/06.svg",
+      "title": "To be continued…",
+      "date": "23.08.2026",
+      "location": "Everywhere with you",
+      "description": "Phần hay nhất là câu chuyện này vẫn chưa kết thúc. ❤️",
+      "chapter": "Chapter 06"
+    }
+  ],
+  "giftCategories": [
+    {
+      "key": "accessories",
+      "label": "Accessories",
+      "emoji": "👜",
+      "items": [
+        {
+          "name": "Mini Bag",
+          "note": "Một chiếc túi nhỏ dễ phối đồ",
+          "image": "gifts/Accessories/mini_bag.svg"
+        },
+        {
+          "name": "Necklace",
+          "note": "Trang sức đơn giản, dùng hằng ngày",
+          "image": "gifts/Accessories/necklace.svg"
+        },
+        {
+          "name": "Watch / Bracelet",
+          "note": "Một món nhỏ nhưng có thể giữ lâu",
+          "image": "gifts/Accessories/watch_bracelet.svg"
+        }
+      ]
+    },
+    {
+      "key": "beauty",
+      "label": "Beauty",
+      "emoji": "💄",
+      "items": [
+        {
+          "name": "Dior Lip Glow",
+          "note": "Son dưỡng dễ dùng hằng ngày",
+          "image": "gifts/Beauty/dior_lip_glow.svg"
+        },
+        {
+          "name": "Dior Lip Maximizer",
+          "note": "Bóng, căng môi và dễ layer",
+          "image": "gifts/Beauty/lip_maximizer.svg"
+        },
+        {
+          "name": "Skincare Set",
+          "note": "Một bộ chăm sóc da em đang thích",
+          "image": "gifts/Beauty/skincare_set.svg"
+        }
+      ]
+    },
+    {
+      "key": "date-experience",
+      "label": "Date & Experience",
+      "emoji": "🍽️",
+      "items": [
+        {
+          "name": "Fine Dinner",
+          "note": "Một buổi tối anh chuẩn bị từ đầu đến cuối",
+          "image": "gifts/Date & Experience/fine_dinner.svg"
+        },
+        {
+          "name": "Spa & Relax Day",
+          "note": "Một ngày nghỉ ngơi đúng nghĩa",
+          "image": "gifts/Date & Experience/spa_relax.svg"
+        },
+        {
+          "name": "Weekend Trip",
+          "note": "Một chuyến đi ngắn chỉ hai đứa",
+          "image": "gifts/Date & Experience/weekend_trip.svg"
+        }
+      ]
+    },
+    {
+      "key": "surprise",
+      "label": "Surprise",
+      "emoji": "🎲",
+      "items": [
+        {
+          "name": "Boyfriend's Choice",
+          "note": "Anh chọn, em chịu rủi ro 😂",
+          "image": "gifts/Surprise/boyfriend_choice.svg"
+        },
+        {
+          "name": "Mystery Box",
+          "note": "Em không được biết trước 😌",
+          "image": "gifts/Surprise/mystery_box.svg"
+        },
+        {
+          "name": "One Wish",
+          "note": "Em nói một điều em muốn, anh cân nhắc 😏",
+          "image": "gifts/Surprise/one_wish.svg"
+        }
+      ]
+    }
+  ]
+}
