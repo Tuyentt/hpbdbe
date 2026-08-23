@@ -196,106 +196,87 @@ function getMemoryDots() {
   return [...document.querySelectorAll(".memory-dot")];
 }
 
-let memoryMetrics = [];
-let memoryActiveIndex = -1;
-let memoryRaf = 0;
+let memoryActiveIndex = 0;
+let memoryScrollTimer = null;
 
-function measureMemorySlides() {
-  const slides = getMemorySlides();
-  memoryMetrics = slides.map(slide => ({
-    center: slide.offsetLeft + slide.offsetWidth / 2
-  }));
-  updateMemoryActive(true);
-}
-
-function updateMemoryActive(force = false) {
+function setActiveMemory(index) {
   const memorySlides = getMemorySlides();
   const dots = getMemoryDots();
-  if (!memorySlides.length || !memoryMetrics.length) return;
+  if (!memorySlides.length) return;
 
-  const viewportCenter = memoryCarousel.scrollLeft + memoryCarousel.clientWidth / 2;
-  const maxDistance = Math.max(memoryCarousel.clientWidth * 0.72, 1);
+  index = Math.max(0, Math.min(index, memorySlides.length - 1));
+  if (index === memoryActiveIndex &&
+      memorySlides[index].classList.contains("active")) return;
 
-  let bestIndex = 0;
-  let bestDistance = Infinity;
+  memoryActiveIndex = index;
 
-  for (let i = 0; i < memorySlides.length; i++) {
-    const signedDistance = memoryMetrics[i].center - viewportCenter;
-    const distance = Math.abs(signedDistance);
-
-    if (distance < bestDistance) {
-      bestDistance = distance;
-      bestIndex = i;
-    }
-
-    // Animate only cards close to the viewport.
-    if (distance < memoryCarousel.clientWidth * 1.35) {
-      const t = Math.min(distance / maxDistance, 1);
-      const scale = 1 - t * 0.075;
-      const opacity = 1 - t * 0.46;
-      const rotate = Math.max(
-        -2.8,
-        Math.min(2.8, signedDistance / memoryCarousel.clientWidth * 4.5)
-      );
-      const translateY = t * 10;
-
-      const slide = memorySlides[i];
-      slide.style.setProperty("--page-scale", scale.toFixed(3));
-      slide.style.setProperty("--page-opacity", opacity.toFixed(3));
-      slide.style.setProperty("--page-rotate", `${rotate.toFixed(2)}deg`);
-      slide.style.setProperty("--page-y", `${translateY.toFixed(1)}px`);
-    }
-  }
-
-  // Only update classes/text when the active slide actually changes.
-  if (force || bestIndex !== memoryActiveIndex) {
-    memoryActiveIndex = bestIndex;
-
-    memorySlides.forEach((slide, i) => {
-      slide.classList.toggle("active", i === bestIndex);
-
-      // Far cards stay in a cheap static state.
-      if (Math.abs(i - bestIndex) > 2) {
-        slide.style.setProperty("--page-scale", ".925");
-        slide.style.setProperty("--page-opacity", ".48");
-        slide.style.setProperty("--page-rotate", "0deg");
-        slide.style.setProperty("--page-y", "10px");
-      }
-    });
-
-    dots.forEach((dot, i) => dot.classList.toggle("active", i === bestIndex));
-    currentMemory.textContent = bestIndex + 1;
-
-    swipeHint.style.opacity = bestIndex > 0 ? "0.35" : "";
-    swipeHint.textContent =
-      bestIndex === memorySlides.length - 1
-        ? "Đã xem hết album ❤️"
-        : "← vuốt để lật trang →";
-  }
-}
-
-function scheduleMemoryUpdate() {
-  if (memoryRaf) return;
-
-  memoryRaf = requestAnimationFrame(() => {
-    memoryRaf = 0;
-    updateMemoryActive();
+  memorySlides.forEach((slide, i) => {
+    slide.classList.toggle("active", i === index);
   });
+
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === index);
+  });
+
+  currentMemory.textContent = index + 1;
+
+  swipeHint.style.opacity = index > 0 ? "0.35" : "";
+  swipeHint.textContent =
+    index === memorySlides.length - 1
+      ? "Đã xem hết album ❤️"
+      : "← vuốt để lật trang →";
 }
 
-memoryCarousel.addEventListener("scroll", scheduleMemoryUpdate, { passive: true });
+function findNearestMemory() {
+  const slides = getMemorySlides();
+  if (!slides.length) return;
 
-let memoryResizeTimer = 0;
-window.addEventListener("resize", () => {
-  clearTimeout(memoryResizeTimer);
-  memoryResizeTimer = setTimeout(measureMemorySlides, 120);
+  const carouselCenter =
+    memoryCarousel.scrollLeft + memoryCarousel.clientWidth / 2;
+
+  let nearestIndex = 0;
+  let nearestDistance = Infinity;
+
+  for (let i = 0; i < slides.length; i++) {
+    const center = slides[i].offsetLeft + slides[i].offsetWidth / 2;
+    const distance = Math.abs(center - carouselCenter);
+
+    if (distance < nearestDistance) {
+      nearestDistance = distance;
+      nearestIndex = i;
+    }
+  }
+
+  setActiveMemory(nearestIndex);
+}
+
+/*
+  PERFORMANCE STRATEGY:
+  - Do not animate every pixel of the swipe.
+  - Let the browser handle native scrolling entirely.
+  - Only update the active card after the finger/scroll slows down.
+*/
+memoryCarousel.addEventListener("scroll", () => {
+  clearTimeout(memoryScrollTimer);
+  memoryScrollTimer = setTimeout(findNearestMemory, 70);
 }, { passive: true });
 
-// Calculate card geometry only when layout is ready, not while scrolling.
+// Modern browsers: react immediately when native scrolling finishes.
+if ("onscrollend" in window) {
+  memoryCarousel.addEventListener("scrollend", findNearestMemory, { passive: true });
+}
+
+// Initial state + resize.
 requestAnimationFrame(() => {
-  measureMemorySlides();
-  setTimeout(measureMemorySlides, 250);
+  setActiveMemory(0);
+  findNearestMemory();
 });
+
+let memoryResizeTimer = null;
+window.addEventListener("resize", () => {
+  clearTimeout(memoryResizeTimer);
+  memoryResizeTimer = setTimeout(findNearestMemory, 150);
+}, { passive: true });
 
 /* GIFTS — generated from /gifts folders */
 const categoryTabs = document.getElementById("categoryTabs");
