@@ -2253,3 +2253,32 @@ body.cake-night-mode a {
   z-index: 999999 !important;
   isolation: isolate;
 }
+
+
+/* =========================================================
+   iOS CAKE SCROLL FIX
+   Keep long-press protection on the hold button,
+   but allow vertical scrolling in the candle scene.
+========================================================= */
+
+body.cake-night-mode #birthdayCakeSection.cake-night-active {
+  touch-action: pan-y !important;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+body.cake-night-mode .hold-blow-btn {
+  touch-action: none !important;
+}
+
+/* After candles are out, explicitly restore normal vertical gestures. */
+body.cake-night-mode #birthdayCakeSection.cake-night-active.candles-out {
+  touch-action: pan-y !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* The result/wish area should always be scrollable/select-safe. */
+body.cake-night-mode #birthdayCakeSection.cake-night-active .birthday-wish {
+  touch-action: pan-y !important;
+}
