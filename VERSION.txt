@@ -1,0 +1,4 @@
+FINAL BASELINE: birthday_v6_3_ultra_smooth_changed_files
+Revision V6.3.1:
+- Memory caption moved below image.
+- Legacy memory/gift/photo placeholders removed from images/.

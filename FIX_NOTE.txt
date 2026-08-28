@@ -1,0 +1,7 @@
+Fixed build based directly on original ver26082026.zip.
+Sections preserved after edit: 6
+- Removed only #afterTimeline (Tiny reasons).
+- Preserved Hero, birthday message, Memories, Easter egg, Gifts.
+- Added number 26 birthday candles.
+- Hold button ~1.9 seconds to blow candles out.
+- JavaScript syntax checked successfully with node --check.

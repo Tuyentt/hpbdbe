@@ -1,0 +1,14 @@
+FOLDER STRUCTURE (V6.3.1)
+
+memories/
+  -> REAL memory photos + matching .txt files
+
+gifts/
+  <Category>/
+    -> REAL gift photos + matching .txt files
+
+images/
+  -> General/static decorative assets only.
+  -> Old memory-* / gift-* / photo-* placeholders were removed.
+
+Memory text now displays BELOW the photo, never on top of it.

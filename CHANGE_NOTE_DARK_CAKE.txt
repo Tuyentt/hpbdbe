@@ -1,0 +1,10 @@
+Based directly on ver26082026_2.zip.
+
+Changes:
+- Added a second music track: music/cake-song.mp3.
+- GO GO fades out Song 1 and starts Song 2.
+- Music button controls whichever song is currently active.
+- GO GO turns the cake section into a full-screen dark-room scene.
+- Cake and number-26 candles are restyled for a dark background.
+- Candle flame glow is stronger in dark mode.
+- After the candles are blown out, the warm light fades.

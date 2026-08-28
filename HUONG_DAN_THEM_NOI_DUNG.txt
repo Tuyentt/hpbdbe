@@ -1,0 +1,182 @@
+BIRTHDAY WEBSITE V4 — CÁCH THÊM ẢNH / QUÀ KHÔNG CẦN SỬA CODE
+================================================================
+
+QUAN TRỌNG
+----------
+Sau khi thêm/xóa/đổi ảnh hoặc mô tả:
+    Double-click: UPDATE_CONTENT.bat
+
+Sau đó refresh index.html.
+
+============================================================
+1. MEMORIES
+============================================================
+
+Folder:
+    memories/
+
+Ví dụ:
+    memories/
+        01.jpg
+        01.txt
+        02.jpg
+        02.txt
+        03.png
+        03.txt
+
+Bạn muốn bao nhiêu ảnh cũng được.
+
+Website sẽ tự quét tất cả:
+    .jpg
+    .jpeg
+    .png
+    .webp
+    .gif
+    .svg
+
+File mô tả phải CÙNG TÊN với ảnh.
+
+Ví dụ:
+    01.jpg
+    01.txt
+
+Nội dung 01.txt:
+
+    Lần đầu đi chơi xa
+    Hôm đó trời khá nóng nhưng đây vẫn là một trong những ngày anh nhớ nhất.
+
+Quy tắc:
+    Dòng 1 = Title
+    Dòng 2 trở đi = Description
+
+Nếu không có file TXT:
+    Website sẽ tự dùng tên file làm Title.
+
+Thứ tự:
+    Đặt tên:
+        01.jpg
+        02.jpg
+        03.jpg
+        ...
+    để điều khiển thứ tự xuất hiện.
+
+============================================================
+2. GIFTS
+============================================================
+
+Mỗi folder con trong gifts/ = một category.
+
+Ví dụ:
+
+    gifts/
+        Beauty/
+            dior_lip_glow.jpg
+            dior_lip_glow.txt
+            lip_maximizer.jpg
+            lip_maximizer.txt
+
+        Accessories/
+            necklace.jpg
+            necklace.txt
+
+        Date & Experience/
+            dinner.jpg
+            dinner.txt
+
+Bạn có thể:
+    - tạo thêm category
+    - xóa category
+    - đổi tên category
+    - thêm bao nhiêu món quà cũng được
+
+KHÔNG cần sửa index.html hoặc script.js.
+
+File TXT của quà cũng cùng quy tắc.
+
+Ví dụ:
+
+    dior_lip_glow.jpg
+    dior_lip_glow.txt
+
+Nội dung dior_lip_glow.txt:
+
+    Dior Lip Glow
+    Son dưỡng dùng hằng ngày, em có thể chọn màu em thích.
+
+Trong đó:
+    Dòng 1 = tên món quà
+    Dòng 2 trở đi = mô tả
+
+============================================================
+3. CẬP NHẬT WEBSITE
+============================================================
+
+Sau khi chỉnh folder:
+
+    Double click:
+        UPDATE_CONTENT.bat
+
+Nó sẽ tự tạo:
+    data/content.json
+    data/content.js
+
+KHÔNG sửa hai file này bằng tay.
+
+============================================================
+4. WORKFLOW ĐỀ XUẤT
+============================================================
+
+1. Copy ảnh vào memories/
+2. Tạo file TXT cùng tên.
+3. Copy ảnh quà vào gifts/<category>/
+4. Tạo TXT cùng tên ảnh.
+5. Chạy UPDATE_CONTENT.bat.
+6. Refresh Chrome.
+7. F12 -> Ctrl+Shift+M để xem mobile.
+
+============================================================
+
+
+============================================================
+V5 - MEMORY CÓ NGÀY + ĐỊA ĐIỂM
+============================================================
+
+Khuyến nghị file TXT của memory có 4 phần:
+
+    Dòng 1 = Title
+    Dòng 2 = Date
+    Dòng 3 = Location
+    Dòng 4 trở đi = Description
+
+Ví dụ:
+
+    01.jpg
+    01.txt
+
+Nội dung 01.txt:
+
+    Our first trip
+    12.05.2025
+    Hạ Long
+    Chuyến đi đầu tiên của hai đứa. Hôm đó trời hơi nóng nhưng vẫn rất vui.
+
+Website sẽ hiển thị:
+
+    Chapter 01
+    Our first trip
+    12.05.2025 · Hạ Long
+    Chuyến đi đầu tiên của hai đứa...
+
+Nếu bạn chỉ dùng format cũ:
+
+    Title
+    Description
+
+thì website vẫn hoạt động bình thường, chỉ không hiện Date/Location.
+
+V5 cũng có hiệu ứng scrapbook:
+- ảnh như được dán lên trang giấy
+- tape màu hồng
+- góc giấy cong nhẹ
+- trang giữa sáng/lớn hơn
+- trang hai bên fade và xoay nhẹ liên tục theo thao tác vuốt

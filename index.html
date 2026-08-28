@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7d8df" />
+  <title>Happy Birthday ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="password-gate" id="passwordGate" role="dialog" aria-modal="true" aria-labelledby="passwordTitle">
+    <div class="secure-panel">
+      <div class="secure-topline">
+        <span class="secure-dot"></span>
+        PRIVATE ACCESS
+      </div>
+
+      <div class="secure-divider"></div>
+
+      <p class="secure-label">IDENTITY VERIFICATION</p>
+      <h1 id="passwordTitle">Access required.</h1>
+
+      <p class="secure-question">Ngày bắt đầu yêu nhau là ngày nào?</p>
+
+      <form id="passwordForm" class="password-form secure-form" autocomplete="off">
+        <label class="secure-input-label" for="passwordInput">ACCESS CODE</label>
+
+        <input
+          id="passwordInput"
+          class="password-input secure-input"
+          type="password"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          maxlength="8"
+          placeholder="DDMMYYYY"
+          aria-label="Ngày bắt đầu yêu nhau"
+          autocomplete="off"
+        >
+
+        <button class="password-submit secure-submit" type="submit">
+          VERIFY
+        </button>
+      </form>
+
+      <div class="secure-status-row">
+        <span>STATUS</span>
+        <span id="secureStatus">LOCKED</span>
+      </div>
+
+      <p class="password-error secure-error" id="passwordError" aria-live="polite"></p>
+    </div>
+  </div>
+<div class="intro-overlay password-locked" id="introOverlay">
+    <div class="intro-decor intro-decor-1">♡</div>
+    <div class="intro-decor intro-decor-2">✦</div>
+    <div class="intro-decor intro-decor-3">🎂</div>
+    <div class="intro-decor intro-decor-4">♡</div>
+    <div class="intro-decor intro-decor-5">✿</div>
+
+    <div class="intro-card">
+      <p class="intro-line intro-line-1">Hello...dầm xế ô 👀</p>
+      <p class="intro-line intro-line-2">Anh đi công tác biên cương vùng núi hải đảo không chuẩn bị được quà sinh nhật cho bé.</p>
+      <p class="intro-line intro-line-3">Nên là…</p>
+      <p class="intro-line intro-line-4"><strong>mở volume lên trước nha 🔊😌</strong></p>
+      <button class="intro-btn intro-line intro-line-5" id="introOpenBtn">Okii, cho em xem 🎁</button>
+    </div>
+  </div>
+
+  <div id="siteContent" class="site-content-hidden">
+
+  <div class="ambient ambient-1"></div>
+  <div class="ambient ambient-2"></div>
+  <div class="ambient ambient-3"></div>
+
+  <button class="music-toggle" id="musicToggle" aria-label="Bật/tắt nhạc">♫</button>
+  <audio id="bgMusic" loop preload="none">
+    <source src="music/our-song.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="cakeMusic" loop preload="none">
+    <source src="music/cake-song.mp3" type="audio/mpeg">
+  </audio>
+
+  <main>
+    <section class="hero section" id="top">
+      <div class="hero-card glass">
+        <p class="eyebrow">A little birthday surprise</p>
+        <h1>Happy Birthday,<br><span id="girlfriendName">My Love</span> ❤️</h1>
+        <p class="hero-date" id="birthdayDate">31.08.2026</p>
+        <p class="hero-copy">Anh làm một thứ nho nhỏ cho bé... </p>
+        <button class="primary-btn" id="openBtn">Tiếp tục xem nhé ❤️</button>
+        <p class="tiny-note">Tip: bật âm lượng trước khi mở.</p>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="section-heading">
+        <p class="eyebrow">For you</p>
+        <h2>Một vài điều anh muốn nói</h2>
+      </div>
+      <div class="message-card">
+        <p>Chúc mừng sinh nhật bé 26 tuổi ❤️</p>
+        <p>Cảm ơn bé vì đã ở bên anh, nghe những câu chuyện linh tinh của anh, chịu đựng những lúc trái gió trở giời của anh, cùng anh đi qua những ngày rất bình thường nhưng lại trở thành những kỷ niệm rất đặc biệt.</p>
+        <p>Anh mong tuổi mới sẽ mang đến cho bé thật nhiều thứ tốt đẹp, những điều bé mong muốn, và cả những chuyến đi, bữa ăn, khoảnh khắc mà sau này hai đứa sẽ còn nhắc lại.</p>
+        <p>Và tất nhiên, anh hy vọng mình vẫn sẽ là người được chúc mừng sinh nhật bé trong rất nhiều năm nữa. ❤️ bây giờ anh nhớ bé lắm lắm </p>
+      </div>
+    </section>
+
+    <section class="section memories-section reveal" id="memoriesSection">
+      <div class="section-heading memories-heading">
+        <p class="eyebrow">Our memories</p>
+        <h2>Cùng nhìn lại dòng thời gian của hai đứa</h2>
+        <p>❤️❤️❤️</p>
+      </div>
+
+      <div class="memories-shell">
+        <div class="memory-carousel" id="memoryCarousel">
+          <!-- Memories are generated automatically from /memories by UPDATE_CONTENT.bat -->
+        </div>
+
+        <div class="carousel-meta">
+          <div class="memory-dots" id="memoryDots"></div>
+          <div class="memory-count"><span id="currentMemory">1</span> / <span id="totalMemory">0</span></div>
+        </div>
+
+        <div class="swipe-hint" id="swipeHint">← vuốt để xem →</div>
+      </div>
+    </section>
+<section class="section reveal">
+      <div class="easter-card">
+        <p class="eyebrow">Very important</p>
+        <h2>Do NOT click this button.</h2>
+        <button class="danger-btn" id="dontClickBtn">Do not click 😐</button>
+        <p id="easterText" class="easter-text"></p>
+      </div>
+    </section>
+
+    <section class="section reveal gift-section" id="gifts">
+      <div class="section-heading">
+        <p class="eyebrow">Birthday gift</p>
+        <h2>Giờ thì chọn quà nhé 🎁</h2>
+        <p>Chọn một nhóm trước, sau đó chọn đúng món bé thích.</p>
+      </div>
+
+      <div class="category-sticky">
+        <div class="category-tabs" id="categoryTabs">
+          <!-- Gift categories are generated automatically from /gifts -->
+        </div>
+      </div>
+
+      <div class="product-carousel-wrap">
+        <div class="product-grid" id="productGrid"></div>
+        <div class="gift-swipe-hint">← vuốt để xem thêm quà →</div>
+      </div>
+
+      <div class="gift-result glass hidden" id="giftResult">
+        <p>You picked</p>
+        <div class="selected-product-preview">
+          <img id="selectedGiftImage" src="" alt="">
+          <div>
+            <h3 id="selectedGift">Your gift</h3>
+            <p id="selectedGiftCategory"></p>
+          </div>
+        </div>
+        <button class="primary-btn" id="confirmGift">Confirm my gift ❤️</button>
+        <p class="gift-confirm-note" id="giftConfirmNote"></p>
+      </div>
+    </section>
+
+    <section class="section ending reveal" id="birthdayCakeSection">
+      <div class="ending-card">
+        <p class="eyebrow">One last surprise</p>
+        <h2>Còn một điều cuối cùng nữa… </h2>
+        <p></p>
+
+        <button class="primary-btn" id="finalSurprise">GO GO </button>
+
+        <div class="cake-surprise hidden" id="cakeSurprise">
+          <div class="cake-stage" id="cakeStage" aria-label="Bánh sinh nhật với nến số 26">
+            <div class="cake-glow"></div>
+
+            <div class="number-candles" id="candles" aria-hidden="true">
+              <div class="number-candle">
+                <span class="number-flame"></span>
+                <span class="number-wick"></span>
+                <span class="number-shape">2</span>
+              </div>
+              <div class="number-candle">
+                <span class="number-flame number-flame-delay"></span>
+                <span class="number-wick"></span>
+                <span class="number-shape">6</span>
+              </div>
+            </div>
+
+            <div class="cake">
+              <div class="cake-top">
+                <span class="berry berry-1"></span>
+                <span class="berry berry-2"></span>
+                <span class="berry berry-3"></span>
+              </div>
+              <div class="cake-layer cake-layer-top"></div>
+              <div class="cake-cream">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <div class="cake-layer cake-layer-bottom"></div>
+              <div class="cake-plate"></div>
+            </div>
+          </div>
+
+          <div class="hold-panel">
+            <p class="cake-action-title" id="cakeActionTitle">Bé ước một điều trước nha 🎂</p>
+            <p class="cake-action-copy" id="cakeActionCopy">Sau đó hãy thổi nến.</p>
+
+            <button class="hold-blow-btn" id="holdBlowBtn" type="button">
+              <span class="hold-progress" id="holdProgress"></span>
+              <span class="hold-button-text" id="holdButtonText">💨💨💨</span>
+            </button>
+
+            <p class="hold-note" id="holdNote"></p>
+          </div>
+
+          <div class="birthday-wish hidden" id="birthdayWish">
+            <div class="wish-big">🎉</div>
+            <h3>Happy Birthday❤️</h3>
+            <p>
+              Mong điều bé vừa ước sẽ thành hiện thực.<br>
+              Và mong anh vẫn được ở cạnh bé trong thật nhiều sinh nhật sau nữa.
+            </p>
+            <div class="wish-hearts">♡ &nbsp; ♡ &nbsp; ♡</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  </div>
+
+  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+  <script src="data/content.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
