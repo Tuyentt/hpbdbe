@@ -2204,3 +2204,52 @@ body.cake-night-mode {
     height: 265px;
   }
 }
+
+
+/* =========================================================
+   iOS SAFARI HOLD FIX
+========================================================= */
+body.cake-night-mode #birthdayCakeSection.cake-night-active {
+  pointer-events: auto !important;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+body.cake-night-mode #siteContent > *:not(#birthdayCakeSection) {
+  pointer-events: none !important;
+}
+
+body.cake-night-mode .hold-blow-btn,
+body.cake-night-mode .hold-blow-btn * {
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
+body.cake-night-mode .hold-blow-btn {
+  touch-action: none !important;
+  -webkit-user-drag: none;
+}
+
+body.cake-night-mode .hold-blow-btn * {
+  pointer-events: none !important;
+}
+
+body.cake-night-mode img {
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+  pointer-events: none !important;
+}
+
+body.cake-night-mode a {
+  -webkit-touch-callout: none !important;
+}
+
+#birthdayCakeSection.cake-night-active {
+  z-index: 999999 !important;
+  isolation: isolate;
+}
