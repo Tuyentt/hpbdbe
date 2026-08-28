@@ -615,7 +615,7 @@ function finishBirthdayCandles() {
   }
 
   if (cakeActionCopy) {
-    cakeActionCopy.textContent = "Happy Birthday, bé!";
+    cakeActionCopy.textContent = "😽😽😽";
   }
 
   if (holdNote) holdNote.classList.add("hidden");
