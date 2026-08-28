@@ -615,7 +615,7 @@ function finishBirthdayCandles() {
   }
 
   if (cakeActionCopy) {
-    cakeActionCopy.textContent = "😽😽😽";
+    cakeActionCopy.textContent = "Happy Birthday, bé!";
   }
 
   if (holdNote) holdNote.classList.add("hidden");
@@ -700,6 +700,41 @@ if (holdBlowBtn) {
       endBirthdayHold(event);
     }
   });
+}
+
+
+
+/* =========================================================
+   iOS SAFARI LONG-PRESS / IMAGE CALLOUT GUARD
+========================================================= */
+function isCakeNightModeActive() {
+  return document.body.classList.contains("cake-night-mode");
+}
+
+document.addEventListener("contextmenu", event => {
+  if (isCakeNightModeActive()) {
+    event.preventDefault();
+  }
+}, { capture: true });
+
+document.addEventListener("dragstart", event => {
+  if (isCakeNightModeActive()) {
+    event.preventDefault();
+  }
+}, { capture: true });
+
+if (holdBlowBtn) {
+  holdBlowBtn.addEventListener("touchstart", event => {
+    event.preventDefault();
+  }, { passive: false });
+
+  holdBlowBtn.addEventListener("touchend", event => {
+    event.preventDefault();
+  }, { passive: false });
+
+  holdBlowBtn.addEventListener("touchcancel", event => {
+    event.preventDefault();
+  }, { passive: false });
 }
 
 
