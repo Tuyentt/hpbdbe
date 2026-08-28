@@ -608,14 +608,19 @@ function finishBirthdayCandles() {
   if (candles) candles.classList.add("blown");
   if (cakeStage) cakeStage.classList.add("blown");
   const cakeSection = document.getElementById("birthdayCakeSection");
-  if (cakeSection) cakeSection.classList.add("candles-out");
+  if (cakeSection) {
+    cakeSection.classList.add("candles-out");
+    cakeSection.style.touchAction = "pan-y";
+    cakeSection.style.overflowY = "auto";
+    cakeSection.style.webkitOverflowScrolling = "touch";
+  }
 
   if (cakeActionTitle) {
     cakeActionTitle.textContent = "Điều ước đã được gửi đi rồi ❤️";
   }
 
   if (cakeActionCopy) {
-    cakeActionCopy.textContent = "🐱🐱🐱";
+    cakeActionCopy.textContent = "Happy Birthday, bé!";
   }
 
   if (holdNote) holdNote.classList.add("hidden");
